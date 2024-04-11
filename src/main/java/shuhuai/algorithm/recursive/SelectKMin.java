@@ -1,12 +1,11 @@
 package shuhuai.algorithm.recursive;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class QuickSort {
-    public void recursive(int[] nums, int left, int right) {
-        if (left >= right) {
-            return;
+public class SelectKMin {
+    public int recursive(int[] nums, int left, int right, int k) {
+        if (left == right) {
+            return nums[left];
         }
         int pivot = nums[left];
         int i = left;
@@ -28,25 +27,29 @@ public class QuickSort {
             }
         }
         nums[i] = pivot;
-        recursive(nums, left, i - 1);
-        recursive(nums, i + 1, right);
+        j = i - left + 1;
+        if (k <= j) {
+            return recursive(nums, left, i, k);
+        }
+        return recursive(nums, i + 1, right, k - j);
     }
 
-    public void recursive(int[] nums) {
-        recursive(nums, 0, nums.length - 1);
+    public int recursive(int[] nums, int k) {
+        return recursive(nums, 0, nums.length - 1, k);
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.isEmpty()) {
-            String[] arr = input.split(" ");
-            int[] nums = new int[arr.length];
-            for (int i = 0; i < arr.length; i++) {
-                nums[i] = Integer.parseInt(arr[i]);
+            String[] split = input.split(" ");
+            int[] nums = new int[split.length];
+            for (int i = 0; i < split.length; i++) {
+                nums[i] = Integer.parseInt(split[i]);
             }
-            new QuickSort().recursive(nums);
-            System.out.println(Arrays.toString(nums));
+            int k = sc.nextInt();
+            System.out.println(new SelectKMin().recursive(nums, k));
+            sc.nextLine();
             input = sc.nextLine();
         }
     }
