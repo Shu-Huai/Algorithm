@@ -44,7 +44,7 @@ public class MaximumSubtotal {
         return new int[]{begin, end};
     }
 
-    private int sum(int[] nums, int begin, int end) {
+    public int sum(int[] nums, int begin, int end) {
         int sum = 0;
         for (int i = begin; i <= end; i++) {
             sum += nums[i];
@@ -100,17 +100,17 @@ public class MaximumSubtotal {
         int b = -1;
         int begin = -1;
         int end = 0;
-        int tempBegin = 0; // 用于记录临时的起始索引
+        int tempBegin = 0;
         for (int i = 0; i < nums.length; i++) {
             if (b < 0) {
                 b = nums[i];
-                tempBegin = i; // 更新临时的起始索引
+                tempBegin = i;
             } else {
                 b += nums[i];
             }
             if (max < b) {
                 max = b;
-                begin = tempBegin; // 更新最大子数组的起始索引
+                begin = tempBegin;
                 end = i;
             }
         }
