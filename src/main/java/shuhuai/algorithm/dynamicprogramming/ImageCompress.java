@@ -6,15 +6,19 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class ImageCompress {
-    private final int[] p;
-    private final int maxLength;
-    private final int[] s;
-    private final int[] b;
-    private final int[] l;
-    private final int[] c;
-    List<int[]> result;
+    private int[] p;
+    private int maxLength;
+    private int[] s;
+    private int[] b;
+    private int[] l;
+    private int[] c;
+    private List<int[]> result;
 
     public ImageCompress(int[] p, int maxLength) {
+        setData(p, maxLength);
+    }
+
+    public void setData(int[] p, int maxLength) {
         this.p = new int[p.length];
         System.arraycopy(p, 0, this.p, 0, p.length);
         this.maxLength = maxLength;
@@ -22,6 +26,7 @@ public class ImageCompress {
         b = new int[p.length];
         l = new int[p.length];
         c = new int[p.length];
+        result = new ArrayList<>();
     }
 
     public void dp() {
@@ -47,7 +52,6 @@ public class ImageCompress {
             stack.push(new int[]{l[i], c[i]});
             i = i - l[i];
         }
-        result = new ArrayList<>();
         while (!stack.isEmpty()) {
             result.add(stack.pop());
         }
