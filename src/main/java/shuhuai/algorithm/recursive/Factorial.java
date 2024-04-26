@@ -1,8 +1,6 @@
 package shuhuai.algorithm.recursive;
 
-import shuhuai.algorithm.utils.Tester;
-
-import java.lang.reflect.InvocationTargetException;
+import java.util.Scanner;
 
 public class Factorial {
     public int recursive(int n) {
@@ -20,7 +18,15 @@ public class Factorial {
         return result;
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        new Tester().testOneInt("shuhuai.algorithm.recursive.Factorial", new String[]{"recursive", "loop"});
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        while (!input.isEmpty()) {
+            int n = Integer.parseInt(input);
+            Factorial fibonacci = new Factorial();
+            System.out.println(fibonacci.recursive(n));
+            System.out.println(fibonacci.loop(n));
+            input = sc.nextLine();
+        }
     }
 }

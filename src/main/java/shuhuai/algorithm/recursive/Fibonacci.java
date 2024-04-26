@@ -1,8 +1,6 @@
 package shuhuai.algorithm.recursive;
 
-import shuhuai.algorithm.utils.Tester;
-
-import java.lang.reflect.InvocationTargetException;
+import java.util.Scanner;
 
 public class Fibonacci {
     public int recursive(int n) {
@@ -27,7 +25,15 @@ public class Fibonacci {
         return result;
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        new Tester().testOneInt("shuhuai.algorithm.recursive.Fibonacci", new String[]{"recursive", "loop"});
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        while (!input.isEmpty()) {
+            int n = Integer.parseInt(input);
+            Fibonacci fibonacci = new Fibonacci();
+            System.out.println(fibonacci.recursive(n));
+            System.out.println(fibonacci.loop(n));
+            input = sc.nextLine();
+        }
     }
 }
