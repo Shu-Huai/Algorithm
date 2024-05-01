@@ -3,17 +3,17 @@ package shuhuai.algorithm.greedy;
 import java.util.*;
 
 public class MultipleMachineDispatch {
-    private Integer[] times;
-    private Integer machineNum;
+    private int[] times;
+    private int machineNum;
     private Machine[] arrangement;
-    private Integer result;
+    private int result;
 
-    public MultipleMachineDispatch(Integer[] times, Integer machineNum) {
+    public MultipleMachineDispatch(int[] times, int machineNum) {
         setData(times, machineNum);
     }
 
-    public void setData(Integer[] times, Integer machineNum) {
-        this.times = new Integer[times.length];
+    public void setData(int[] times, int machineNum) {
+        this.times = new int[times.length];
         System.arraycopy(times, 0, this.times, 0, times.length);
         this.machineNum = machineNum;
         arrangement = new Machine[machineNum];
@@ -26,18 +26,18 @@ public class MultipleMachineDispatch {
     }
 
     public static class Machine {
-        private Integer id;
-        private Integer time;
+        private int id;
+        private int time;
         private List<Integer> queue;
 
-        public Integer getTime() {
+        public int getTime() {
             return time;
         }
     }
 
-    public Integer greedy() {
+    public int greedy() {
         if (times.length <= machineNum) {
-            Integer max = Integer.MIN_VALUE;
+            int max = Integer.MIN_VALUE;
             for (int i = 0; i < times.length; i++) {
                 arrangement[i].time = times[i];
                 arrangement[i].queue.add(times[i]);
@@ -49,7 +49,12 @@ public class MultipleMachineDispatch {
             return result;
         }
         PriorityQueue<Machine> minHeap = new PriorityQueue<>(Comparator.comparingInt(Machine::getTime));
-        Arrays.sort(times, Comparator.reverseOrder());
+        Arrays.sort(times);
+        for (int i = 0; i < times.length / 2; i++) {
+            int temp = times[i];
+            times[i] = times[times.length - 1 - i];
+            times[times.length - 1 - i] = temp;
+        }
         for (int i = 0; i < machineNum; i++) {
             Machine machine = new Machine();
             machine.id = i;
@@ -82,11 +87,11 @@ public class MultipleMachineDispatch {
         String input = scanner.nextLine();
         while (!input.isEmpty()) {
             String[] split = input.split(" ");
-            Integer[] times = new Integer[split.length];
+            int[] times = new int[split.length];
             for (int i = 0; i < times.length; i++) {
                 times[i] = Integer.parseInt(split[i]);
             }
-            Integer machineNum = scanner.nextInt();
+            int machineNum = scanner.nextInt();
             MultipleMachineDispatch dispatch = new MultipleMachineDispatch(times, machineNum);
             System.out.println(dispatch.greedy());
             for (int i = 0; i < dispatch.arrangement.length; i++) {
