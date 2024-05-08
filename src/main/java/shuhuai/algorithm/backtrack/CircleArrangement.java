@@ -1,13 +1,11 @@
 package shuhuai.algorithm.backtrack;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class CircleArrangement {
     private double[] radius;
     private double min;
-    private List<double[]> results;
+    private double[] result;
 
     public CircleArrangement(double[] radius) {
         setData(radius);
@@ -17,7 +15,7 @@ public class CircleArrangement {
         this.radius = new double[radius.length];
         System.arraycopy(radius, 0, this.radius, 0, radius.length);
         min = 0;
-        results = new ArrayList<>();
+        result = new double[radius.length];
     }
 
     public double backtrack() {
@@ -52,9 +50,7 @@ public class CircleArrangement {
             }
             if (min > high - low) {
                 min = high - low;
-                double[] cur = new double[r.length];
-                System.arraycopy(r, 0, cur, 0, r.length);
-                results.add(cur);
+                System.arraycopy(r, 0, result, 0, r.length);
             }
             return;
         }
@@ -84,12 +80,10 @@ public class CircleArrangement {
             }
             CircleArrangement c = new CircleArrangement(radius);
             System.out.println(c.backtrack());
-            for (int i = 0; i < c.results.size(); i++) {
-                for (int j = 0; j < c.results.get(i).length; j++) {
-                    System.out.print(c.results.get(i)[j] + " ");
-                }
-                System.out.println();
+            for (int i = 0; i < c.result.length; i++) {
+                System.out.print(c.result[i] + " ");
             }
+            System.out.println();
             input = sc.nextLine();
         }
     }
